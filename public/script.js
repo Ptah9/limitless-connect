@@ -1,33 +1,34 @@
 const inputForm = document.querySelector(".input-form")
-const sendButton = document.querySelector(".send-button")
 const textInput = document.querySelector(".text-input")
 const chat = document.querySelector(".chat")
 
-
-console.log("script.js загружен и работает")
-
-
 inputForm.addEventListener('submit', function(event) {
-  console.log("submit сработал")
   event.preventDefault()
 
   const message = textInput.value.trim()
-  console.log("message:", message)
-  if (!message) {
-    console.log("пустое сообщение — выходим")
-    return
-  }
+  if (!message) return
   textInput.value = ""
 
+  // Показать сообщение пользователя
+  const userMsg = document.createElement("div")
+  userMsg.textContent = "Ты: " + message
+  userMsg.style.fontWeight = "bold"
+  chat.appendChild(userMsg)
+
+  // Отправить запрос на сервер
   fetch("/api/hello")
-    .then(res => {
-      console.log("response status:", res.status)
-      return res.json()
-    })
+    .then(res => res.json())
     .then(data => {
-      console.log("Ответ сервера:", data.message)
+      // Показать ответ сервера в чате
+      const serverMsg = document.createElement("div")
+      serverMsg.textContent = "Сервер: " + data.message
+      serverMsg.style.color = "blue"
+      chat.appendChild(serverMsg)
     })
     .catch(err => {
-      console.log("Ошибка:", err)
+      const errorMsg = document.createElement("div")
+      errorMsg.textContent = "Ошибка: " + err.message
+      errorMsg.style.color = "red"
+      chat.appendChild(errorMsg)
     })
 })
