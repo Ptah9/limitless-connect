@@ -3,6 +3,10 @@ const sendButton = document.querySelector(".send-button")
 const textInput = document.querySelector(".text-input")
 const chat = document.querySelector(".chat")
 
+
+console.log("script.js загружен и работает")
+
+
 inputForm.addEventListener('submit', function(event) {
   event.preventDefault()
 
