@@ -1,22 +1,20 @@
-const inputForm = document.querySelector(".input-form"),
-      sendButton = document.querySelector(".send-button"),
-      textInput = document.querySelector(".text-input");
-
-
+const inputForm = document.querySelector(".input-form")
+const sendButton = document.querySelector(".send-button")
+const textInput = document.querySelector(".text-input")
 
 inputForm.addEventListener('submit', function(event) {
-    let message = textInput.value
-    event.preventDefault();
-    textInput.value = "";
-    console.log(message)
-});
+  event.preventDefault()
 
+  const message = textInput.value
+  textInput.value = ""
 
+  console.log("Отправлено сообщение:", message)
 
-fetch("http://localhost:3000/hello")
-  .then(res => res.json())
-  .then(data => {
-    console.log(data.message)
-  })
-  .catch(err => console.error("Ошибка:", err))
-
+  fetch("/api/hello")  // относительный путь, работает на vercel и локально
+    .then(res => res.json())
+    .then(data => {
+      console.log("Ответ сервера:", data.message)
+      // можно показать ответ где-нибудь на странице, если хочешь
+    })
+    .catch(err => console.error("Ошибка:", err))
+})
