@@ -16,7 +16,7 @@ inputForm.addEventListener('submit', function(event) {
 fetch("http://localhost:3000/hello")
   .then(res => res.json())
   .then(data => {
-    console.log(data.message) // здесь будет "Hello"
+    console.log(data.message)
   })
   .catch(err => console.error("Ошибка:", err))
 
