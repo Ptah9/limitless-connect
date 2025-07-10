@@ -23,11 +23,13 @@ inputForm.addEventListener('submit', function(event) {
       botMsg.textContent = "Сервер: " + data.message
       botMsg.style.color = "blue"
       chat.appendChild(botMsg)
+      console.log(data.message)
     })
     .catch(err => {
       const errMsg = document.createElement("div")
       errMsg.textContent = "Ошибка: " + err.message
       errMsg.style.color = "red"
       chat.appendChild(errMsg)
+      console.log(err.message)
     })
 })
