@@ -8,32 +8,22 @@ console.log("script.js загружен и работает")
 
 
 inputForm.addEventListener('submit', function(event) {
+  console.log("submit сработал")  // вот этот лог должен появиться при отправке формы
+
   event.preventDefault()
 
   const message = textInput.value.trim()
-  if (!message) return // если пустое — не отправляем
+  if (!message) return
   textInput.value = ""
 
-  // Добавляем своё сообщение в чат
-  const userMsg = document.createElement("div")
-  userMsg.textContent = "Ты: " + message
-  userMsg.style.fontWeight = "bold"
-  chat.appendChild(userMsg)
+  console.log("Отправлено сообщение:", message)
 
-  fetch("/api/hello")  // относительный путь, работает и на локале, и на Vercel
+  fetch("/api/hello")
     .then(res => res.json())
     .then(data => {
-      const botMsg = document.createElement("div")
-      botMsg.textContent = "Сервер: " + data.message
-      botMsg.style.color = "blue"
-      chat.appendChild(botMsg)
-      console.log(data.message)
+      console.log("Ответ сервера:", data.message)
     })
     .catch(err => {
-      const errMsg = document.createElement("div")
-      errMsg.textContent = "Ошибка: " + err.message
-      errMsg.style.color = "red"
-      chat.appendChild(errMsg)
-      console.log(err.message)
+      console.log("Ошибка:", err)
     })
 })
