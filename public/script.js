@@ -8,18 +8,22 @@ console.log("script.js загружен и работает")
 
 
 inputForm.addEventListener('submit', function(event) {
-  console.log("submit сработал")  // вот этот лог должен появиться при отправке формы
-
+  console.log("submit сработал")
   event.preventDefault()
 
   const message = textInput.value.trim()
-  if (!message) return
+  console.log("message:", message)
+  if (!message) {
+    console.log("пустое сообщение — выходим")
+    return
+  }
   textInput.value = ""
 
-  console.log("Отправлено сообщение:", message)
-
   fetch("/api/hello")
-    .then(res => res.json())
+    .then(res => {
+      console.log("response status:", res.status)
+      return res.json()
+    })
     .then(data => {
       console.log("Ответ сервера:", data.message)
     })
